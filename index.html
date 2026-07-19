@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METAL CRAFT | 프리미엄 금속 3D 프린팅 서비스</title>
+    <!-- 구글 폰트: Pretendard 대체제로 Noto Sans KR 사용 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 디자인 시스템 & 변수 */
+        :root {
+            --primary-color: #2c3e50; /* 챠콜 그레이 */
+            --accent-color: #3498db;  /* 스틸 블루 */
+            --bg-light: #f8f9fa;
+            --text-main: #333;
+            --text-muted: #777;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* 2. 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 3. 헤더 (Navigation) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 4. 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 5px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 5. 서비스 섹션 (Grid 활용) */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            background: var(--bg-light);
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* 6. 견적기 섹션 (Calculator Mockup) */
+        .calculator-box {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calc-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .form-group select, .form-group input {
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .price-display {
+            grid-column: span 2;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .price-display span {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        /* 7. 푸터 */
+        footer {
+            background: #1a252f;
+            color: #bdc3c7;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #34495e;
+            padding-top: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .calc-form { grid-template-columns: 1fr; }
+            .price-display { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">METAL CRAFT</a>
+                <ul class="nav-links">
+                    <li><a href="#services">서비스</a></li>
+                    <li><a href="#materials">소재 정보</a></li>
+                    <li><a href="#calculator">실시간 견적</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>정밀 금속 3D 프린팅,<br>설계의 한계를 넘다</h1>
+                <p>항공우주부터 의료 기기까지, 가장 정밀한 금속 프린팅 솔루션을 제공합니다. 최고 품질의 소재와 기술로 당신의 아이디어를 현실로 만드세요.</p>
+                <a href="#calculator" class="btn">지금 견적 받기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 특징 섹션 -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>금속 3D 프린팅의 핵심 가치를 경험해 보세요.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h3>복잡한 형상 구현</h3>
+                    <p>전통적인 가공 방식으로는 불가능한 복잡한 내부 구조와 유기적인 디자인을 완벽하게 구현합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-weight-hanging"></i>
+                    <h3>경량화 솔루션</h3>
+                    <p>위상 최적화 설계를 통해 강도는 유지하면서 무게는 획기적으로 줄인 부품을 제작합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>신속한 시제품 제작</h3>
+                    <p>금형 제작 없이 수일 내에 실제 금속 부품을 확보하여 제품 개발 주기를 단축하세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 견적 계산기 섹션 -->
+    <section id="calculator" style="background-color: var(--bg-light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Instant Quote</h2>
+                <p>재료와 옵션을 선택하여 대략적인 비용을 확인하세요.</p>
+            </div>
+            <div class="calculator-box">
+                <div class="calc-form">
+                    <div class="form-group">
+                        <label>소재 선택</label>
+                        <select id="material">
+                            <option value="titanium">티타늄 (Ti-6Al-4V)</option>
+                            <option value="stainless">스테인리스강 (SUS316L)</option>
+                            <option value="aluminum">알루미늄 (AlSi10Mg)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>예상 부피 (cm³)</label>
+                        <input type="number" id="volume" value="10" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>후처리 옵션</label>
+                        <select id="finish">
+                            <option value="standard">표준 (샌드 블라스팅)</option>
+                            <option value="polishing">정밀 연마 (Polishing)</option>
+                            <option value="heat">열처리 추가</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>납기 선택</label>
+                        <select id="speed">
+                            <option value="normal">일반 배송 (5~7일)</option>
+                            <option value="express">급행 배송 (2~3일)</option>
+                        </select>
+                    </div>
+                    <div class="price-display">
+                        <p>예상 견적 금액</p>
+                        <span id="total-price">₩ 450,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 소재 정보 섹션 -->
+    <section id="materials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Materials</h2>
+                <p>산업별 요구사항에 맞는 다양한 금속 분말을 지원합니다.</p>
+            </div>
+            <!-- 간단한 리스트 형태로 연습하기 좋게 구성 -->
+            <div class="features-grid">
+                <div class="feature-card" style="background: white; border: 1px solid #eee;">
+                    <h3>Titanium</h3>
+                    <p>높은 비강도와 내식성. 항공우주 및 의료용 임플란트에 최적입니다.</p>
+                </div>
+                <div class="feature-card" style="background: white; border: 1px solid #eee;">
+                    <h3>Stainless Steel</h3>
+                    <p>우수한 기계적 성질과 가공성. 산업용 부품 및 금형에 널리 사용됩니다.</p>
+                </div>
+                <div class="feature-card" style="background: white; border: 1px solid #eee;">
+                    <h3>Aluminum</h3>
+                    <p>가벼운 무게와 우수한 열전도성. 자동차 부품 및 방열판에 적합합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <span class="footer-logo">METAL CRAFT</span>
+                    <p>경기도 안양시 동안구 디지털로 123<br>Tel: 02-123-4567<br>Email: info@metalcraft.com</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul style="margin-top:15px; opacity:0.8; font-size:0.9rem; line-height:2;">
+                        <li><a href="#">회사소개</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Social</h4>
+                    <div style="margin-top:15px; display:flex; gap:20px; font-size:1.5rem;">
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 METAL CRAFT 3D Printing Service. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 간단한 견적 계산 로직 (연습용)
+        const materialEl = document.getElementById('material');
+        const volumeEl = document.getElementById('volume');
+        const finishEl = document.getElementById('finish');
+        const speedEl = document.getElementById('speed');
+        const priceEl = document.getElementById('total-price');
+
+        function calculatePrice() {
+            let basePrice = 0;
+            const volume = parseFloat(volumeEl.value) || 0;
+
+            // 재료별 단가
+            if(materialEl.value === 'titanium') basePrice = 30000;
+            else if(materialEl.value === 'stainless') basePrice = 15000;
+            else basePrice = 10000;
+
+            let total = basePrice * volume;
+
+            // 옵션 추가
+            if(finishEl.value === 'polishing') total += 100000;
+            if(finishEl.value === 'heat') total += 50000;
+            if(speedEl.value === 'express') total *= 1.3;
+
+            priceEl.innerText = '₩ ' + Math.floor(total).toLocaleString();
+        }
+
+        // 이벤트 리스너 연결
+        [materialEl, volumeEl, finishEl, speedEl].forEach(el => {
+            el.addEventListener('change', calculatePrice);
+            el.addEventListener('input', calculatePrice);
+        });
+
+        // 네비게이션 스무스 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
